@@ -1,12 +1,6 @@
 # Todo
 
-Todo List app for React Native Screening Test offered by CabbageApps.
-
-## Acknowledgements
-
-- This app was written in 5 hours and as so the codebase reflects internal conceptualization that is not heavily modularized or overly explained and/or complicated, I tried to Keep It Simple Stupid.
-- No external libraries have been leveraged in an attempt to forgeo stability and consistent performance of the overall user experience.
-- Many implementations within this project have been hastily designed so as to reach deadlines.
+Todo List app for React Native Screening Test offered by CabbageApps
 
 ## Deployment
 
@@ -48,6 +42,12 @@ expo build:ios
 ### New Task
 
 ![newTask](./docs/images/newTask.png)
+
+## Acknowledgements
+
+- This app was written in 5 hours and as so the codebase reflects internal conceptualization that is not heavily modularized or overly explained and/or complicated, I tried to Keep It Simple Stupid.
+- No external libraries have been leveraged in an attempt to forgeo stability and consistent performance of the overall user experience.
+- Many implementations within this project have been hastily designed so as to reach deadlines.
 
 ## Optimizations
 
