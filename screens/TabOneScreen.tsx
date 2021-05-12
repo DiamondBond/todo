@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   StyleSheet,
@@ -8,10 +8,12 @@ import {
   Dimensions,
   Modal,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
 import { Text, View } from "../components/Themed";
 import { FontAwesome } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
@@ -20,18 +22,27 @@ interface ToDo {
   completed: boolean;
 }
 
-export default function TabOneScreen() {
+export default function TabOneScreen(props: any) {
+  // Modal State Management
+  const [modalShown, setModalShown] = React.useState(false);
+  const showModal = () => {
+    setModalShown(true);
+  };
+  const hideModal = () => {
+    setModalShown(false);
+  };
+
+  // TODO List State Management
   const [value, setValue] = useState<string>("");
   const [toDoList, setToDos] = useState<ToDo[]>([]);
   const [error, showError] = useState<Boolean>(false);
-
-  const [modalShown, setModalShown] = useState<boolean>(false);
 
   const handleSubmit = (): void => {
     if (value.trim())
       setToDos([...toDoList, { text: value, completed: false }]);
     else showError(true);
     setValue("");
+    hideModal();
   };
 
   const removeItem = (index: number): void => {
@@ -46,15 +57,84 @@ export default function TabOneScreen() {
     setToDos(newToDoList);
   };
 
-  const showModal = () => {
-    setModalShown(true);
-  };
-  const hideModal = () => {
-    setModalShown(false);
-  };
-
   return (
     <View style={styles.container}>
+      {/* MODAL */}
+      <Modal
+        visible={modalShown}
+        animationType="slide"
+        hardwareAccelerated={true} // WARNING: UNSURE IF THIS IS SAFE.
+        transparent={true}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 0,
+            marginBottom: 40,
+          }}
+        >
+          <View style={styles.modalView}>
+            <TouchableOpacity
+              style={{ position: "absolute", right: 15, top: 10 }}
+              onPress={() => {
+                hideModal();
+              }}
+            >
+              <FontAwesome name="close" color="gray" size={22} />
+            </TouchableOpacity>
+            {/* <View style={styles.inputWrapper}> */}
+            <View>
+              <Text>{`\n`}</Text>
+              <Text>{`\n`}</Text>
+              <TextInput
+                placeholder="Task Title"
+                value={value}
+                onChangeText={(e) => {
+                  setValue(e);
+                  showError(false);
+                }}
+                style={styles.inputBox}
+              />
+              <TouchableOpacity
+                style={{
+                  height: 60,
+                  width: 200,
+                  borderRadius: 15,
+                  backgroundColor: "#fd93a1",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 5,
+                  marginBottom: 5,
+
+                  // Shadows
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3,
+                  elevation: 5,
+                }}
+                onPress={() => {
+                  handleSubmit();
+                }}
+              >
+                <Text style={{ color: "white" }}>Add Task</Text>
+              </TouchableOpacity>
+            </View>
+            {error && (
+              <Text style={styles.error}>Error: Input field is empty...</Text>
+            )}
+            <Text>{`\n`}</Text>
+            <Text>{`\n`}</Text>
+          </View>
+        </View>
+      </Modal>
+
+      {/* HEADER */}
       <View style={{ flexDirection: "row", marginTop: "5%" }}>
         <Text
           style={{
@@ -74,6 +154,7 @@ export default function TabOneScreen() {
             borderWidth: 1,
             borderColor: "white",
             marginLeft: "60%",
+            justifyContent: "space-between",
           }}
           source={require("../assets/images/user.png")}
         />
@@ -91,81 +172,99 @@ export default function TabOneScreen() {
       {/* SPACER */}
       <Text>{`\n`}</Text>
       <Text>{`\n`}</Text>
-      <Text>{`\n`}</Text>
-      <Text>{`\n`}</Text>
       {/* SPACER */}
 
-      <Text style={styles.subtitle}>Tasks</Text>
-      {toDoList.length === 0 && <Text>No to do task available</Text>}
-      {toDoList.map((toDo: ToDo, index: number) => (
-        <View style={styles.listItem} key={`${index}_${toDo.text}`}>
-          <Text
-            style={[
-              styles.task,
-              {
-                textDecorationLine: toDo.completed ? "line-through" : "none",
-              },
-            ]}
-          >
-            {toDo.text}
-          </Text>
-          <Button
-            title={toDo.completed ? "Completed" : "Complete"}
-            onPress={() => toggleComplete(index)}
-          />
-          <Button
-            title="X"
-            onPress={() => {
-              removeItem(index);
-            }}
-            color="crimson"
-          />
-        </View>
-      ))}
+      {/* TASK LIST */}
+      <ScrollView>
+        <Text style={styles.subtitle}>Tasks</Text>
+        {toDoList.length === 0 && <Text>Nothing To Do.</Text>}
+        {toDoList.map((toDo: ToDo, index: number) => (
+          <View style={styles.listItem} key={`${index}_${toDo.text}`}>
+            <Text
+              style={[
+                styles.task,
+                {
+                  textDecorationLine: toDo.completed ? "line-through" : "none",
+                  fontSize: 22,
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              {toDo.text}
+            </Text>
 
-      <Modal
-        visible={modalShown}
-        animationType="slide"
-        hardwareAccelerated={true} // WARNING: UNSURE IF THIS IS SAFE.
-        transparent={true}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+            {/* TOGGLE TASK */}
             <TouchableOpacity
-              style={{ position: "absolute", right: 20, top: 10 }}
+              style={[
+                styles.touchableStyle,
+                toDo.completed ? styles.selected : styles.unselected,
+              ]}
               onPress={() => {
-                hideModal();
+                toggleComplete(index);
               }}
             >
-              <FontAwesome name="close" color="gray" size={22} />
+              <Text style={{ color: "white" }}>
+                {toDo.completed ? (
+                  <Feather name="check" color="white" size={24} />
+                ) : null}
+              </Text>
             </TouchableOpacity>
-            <View style={styles.inputWrapper}>
-              <TextInput
-                placeholder="Enter your todo task..."
-                value={value}
-                onChangeText={(e) => {
-                  setValue(e);
-                  showError(false);
-                }}
-                style={styles.inputBox}
-              />
-              <Button title="Add Task" onPress={handleSubmit} />
-            </View>
-            {error && (
-              <Text style={styles.error}>Error: Input field is empty...</Text>
-            )}
+
+            {/* DELETE TASK */}
+            <TouchableOpacity
+              style={[
+                styles.touchableStyle,
+                {
+                  backgroundColor: "red",
+                },
+              ]}
+              onPress={() => {
+                removeItem(index);
+              }}
+            >
+              <Feather name="x" color="white" size={24} />
+            </TouchableOpacity>
           </View>
-        </View>
-      </Modal>
+        ))}
+      </ScrollView>
+      <View
+        style={{ flex: 1, alignItems: "center", justifyContent: "flex-end" }}
+      >
+        <TouchableOpacity
+          style={{
+            height: 60,
+            width: 60,
+            borderRadius: 15,
+            backgroundColor: "#fd93a1",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 5,
+            marginBottom: 5,
 
-
-
+            // Shadows
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3,
+            elevation: 5,
+          }}
+          onPress={() => {
+            showModal();
+          }}
+        >
+          <FontAwesome name="plus" color="white" size={22} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 35,
     //alignItems: "center",
   },
@@ -177,10 +276,13 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     width: 200,
-    borderColor: "purple",
+    borderColor: "#eee",
+    backgroundColor: "#f7f8fa",
     borderRadius: 8,
     borderWidth: 2,
     paddingLeft: 8,
+    paddingRight: 8,
+    padding: 8,
   },
   title: {
     fontSize: 40,
@@ -195,11 +297,22 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   listItem: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "100%",
-    marginBottom: 10,
+    alignSelf: "center",
+    width: "92.5%",
+    backgroundColor: "white",
+    borderColor: "lightgray",
+    borderWidth: 1,
+    borderRadius: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 15,
+    marginBottom: 15,
   },
   addButton: {
     alignItems: "flex-end",
@@ -269,6 +382,31 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 1,
     justifyContent: "flex-end",
-    marginBottom: 36,
+    marginBottom: 5,
+  },
+  selected: {
+    backgroundColor: "#5a3ea4",
+  },
+  unselected: {
+    backgroundColor: "#ffffff",
+  },
+  touchableStyle: {
+    height: 40,
+    width: 40,
+    borderRadius: 30,
+    borderColor: "#dcdcdc",
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+
+    // Shadows
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 5,
   },
 });

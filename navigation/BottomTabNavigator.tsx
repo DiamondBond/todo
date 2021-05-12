@@ -9,12 +9,10 @@ import useColorScheme from "../hooks/useColorScheme";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
-import Navigation from ".";
-import { baseProps } from "react-native-gesture-handler/lib/typescript/handlers/gestureHandlers";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
+export default function BottomTabNavigator(props: any) {
   const colorScheme = useColorScheme();
 
   return (
@@ -35,7 +33,7 @@ export default function BottomTabNavigator() {
         }}
       />
 
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="NewTask"
         component={TabOneNavigator}
         options={{
@@ -61,13 +59,27 @@ export default function BottomTabNavigator() {
                 shadowRadius: 3,
                 elevation: 5,
               }}
-              onPress={() => console.log("hi")}
+              onPress={() => {
+                props.navigation.navigate("Root", {
+                  screen: "TabOne",
+                  params: { displayModal: true },
+                });
+              }}
             >
               <FontAwesome name="plus" color="white" size={22} />
             </TouchableOpacity>
           ),
         }}
-      ></BottomTab.Screen>
+        // listeners={() => ({
+        //   tabPress: (event) => {
+        //     event.preventDefault();
+        //     props.navigation.navigate("Root", {
+        //       screen: "TabOne",
+        //       params: { displayModal: true },
+        //     });
+        //   },
+        // })}
+      ></BottomTab.Screen> */}
 
       <BottomTab.Screen
         name="TabTwo"
