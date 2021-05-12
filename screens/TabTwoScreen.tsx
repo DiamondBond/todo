@@ -8,12 +8,12 @@ export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Hello :)</Text>
-      <Text>This app was created for a React Native Test by CabbageApps.</Text>
-      <Text>A time constraint of 3-5 hours was specified.</Text>
+      <Text>{`\n`}This was created for a React Native Screening Test offered by CabbageApps.</Text>
+      <Text>Time: 3-5 hours.</Text>
       <Text>{`\n`}Further improvements could include:</Text>
       <Text> - Redux Global States Management</Text>
       <Text> - Modal Card View for New Task</Text>
-      <Text> - Further modularization</Text>
+      <Text> - More Modularization</Text>
     </View>
   );
 }

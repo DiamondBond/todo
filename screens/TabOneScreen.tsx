@@ -66,15 +66,7 @@ export default function TabOneScreen(props: any) {
         hardwareAccelerated={true} // WARNING: UNSURE IF THIS IS SAFE.
         transparent={true}
       >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 0,
-            marginBottom: 40,
-          }}
-        >
+        <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <TouchableOpacity
               style={{ position: "absolute", right: 15, top: 10 }}
@@ -95,8 +87,11 @@ export default function TabOneScreen(props: any) {
                   setValue(e);
                   showError(false);
                 }}
+                autoFocus={true}
+                multiline={true}
                 style={styles.inputBox}
               />
+              <Text>{`\n`}</Text>
               <TouchableOpacity
                 style={{
                   height: 60,
@@ -177,7 +172,9 @@ export default function TabOneScreen(props: any) {
       {/* TASK LIST */}
       <ScrollView>
         <Text style={styles.subtitle}>Tasks</Text>
-        {toDoList.length === 0 && <Text>Nothing To Do.</Text>}
+        {toDoList.length === 0 && (
+          <Text style={{ fontSize: 24 }}>Nothing To Do.</Text>
+        )}
         {toDoList.map((toDo: ToDo, index: number) => (
           <View style={styles.listItem} key={`${index}_${toDo.text}`}>
             <Text
@@ -186,7 +183,8 @@ export default function TabOneScreen(props: any) {
                 {
                   textDecorationLine: toDo.completed ? "line-through" : "none",
                   fontSize: 22,
-                  fontWeight: "bold",
+                  fontWeight: "normal",
+                  fontStyle: toDo.completed ? "italic" : "normal",
                 },
               ]}
             >
@@ -215,7 +213,7 @@ export default function TabOneScreen(props: any) {
               style={[
                 styles.touchableStyle,
                 {
-                  backgroundColor: "red",
+                  backgroundColor: "#fd93a1",
                 },
               ]}
               onPress={() => {
@@ -291,7 +289,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: "bold",
     marginBottom: 10,
     color: "gray",
@@ -303,7 +301,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "92.5%",
-    backgroundColor: "white",
+    backgroundColor: "#f9fafc",
     borderColor: "lightgray",
     borderWidth: 1,
     borderRadius: 15,
@@ -338,11 +336,11 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   centeredView: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     marginTop: 0,
-    marginBottom: 40,
+    marginBottom: 0,
+    flex: 1,
+    justifyContent: "center",
   },
   modalView: {
     margin: 20,
