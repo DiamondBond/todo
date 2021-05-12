@@ -14,6 +14,7 @@ export default function TabTwoScreen() {
       <Text> - Redux Global States Management</Text>
       <Text> - Modal Card View for New Task</Text>
       <Text> - More Modularization</Text>
+      <Text> - Better UI Design Leveraging External Libs (Redux, ModalCard)</Text>
     </View>
   );
 }

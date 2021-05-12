@@ -95,7 +95,7 @@ export default function TabOneScreen(props: any) {
               <TouchableOpacity
                 style={{
                   height: 60,
-                  width: 200,
+                  width: 400,
                   borderRadius: 15,
                   backgroundColor: "#fd93a1",
                   justifyContent: "center",
@@ -117,7 +117,11 @@ export default function TabOneScreen(props: any) {
                   handleSubmit();
                 }}
               >
-                <Text style={{ color: "white" }}>Add Task</Text>
+                <Text
+                  style={{ color: "white", fontWeight: "bold", fontSize: 22 }}
+                >
+                  Add Task
+                </Text>
               </TouchableOpacity>
             </View>
             {error && (
@@ -273,12 +277,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputBox: {
-    width: 200,
+    width: 400,
+    height: 100,
     borderColor: "#eee",
     backgroundColor: "#f7f8fa",
     borderRadius: 8,
     borderWidth: 2,
-    paddingLeft: 8,
+    paddingLeft: 32,
     paddingRight: 8,
     padding: 8,
   },
