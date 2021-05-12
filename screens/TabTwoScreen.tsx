@@ -8,13 +8,19 @@ export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Hello :)</Text>
-      <Text>{`\n`}This was created for a React Native Screening Test offered by CabbageApps.</Text>
+      <Text>
+        {`\n`}This was created for a React Native Screening Test offered by
+        CabbageApps.
+      </Text>
       <Text>Time: 3-5 hours.</Text>
       <Text>{`\n`}Further improvements could include:</Text>
       <Text> - Redux Global States Management</Text>
       <Text> - Modal Card View for New Task</Text>
       <Text> - More Modularization</Text>
-      <Text> - Better UI Design Leveraging External Libs (Redux, ModalCard)</Text>
+      <Text>
+        {" "}
+        - Better UI Design Leveraging External Libs (Redux, ModalCard)
+      </Text>
     </View>
   );
 }

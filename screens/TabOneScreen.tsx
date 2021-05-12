@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  Button,
   StyleSheet,
   TextInput,
   Image,
@@ -14,8 +13,6 @@ import {
 import { Text, View } from "../components/Themed";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-
-const { width, height } = Dimensions.get("window");
 
 interface ToDo {
   text: string;
@@ -76,7 +73,6 @@ export default function TabOneScreen(props: any) {
             >
               <FontAwesome name="close" color="gray" size={22} />
             </TouchableOpacity>
-            {/* <View style={styles.inputWrapper}> */}
             <View>
               <Text>{`\n`}</Text>
               <Text>{`\n`}</Text>
@@ -268,7 +264,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 35,
-    //alignItems: "center",
   },
   inputWrapper: {
     width: "100%",
@@ -329,8 +324,6 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: "row",
-    // marginTop: 12,
-    // marginBottom: 12,
   },
   image: {
     width: 150,
