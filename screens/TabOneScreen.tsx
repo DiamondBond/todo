@@ -118,7 +118,7 @@ export default function TabOneScreen(props: any) {
                 }}
               >
                 <Text
-                  style={{ color: "white", fontWeight: "bold", fontSize: 22 }}
+                  style={{ color: "white", fontWeight: "bold", fontSize: 20 }}
                 >
                   Add Task
                 </Text>
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     width: 400,
-    height: 100,
+    height: 80,
     borderColor: "#eee",
     backgroundColor: "#f7f8fa",
     borderRadius: 8,

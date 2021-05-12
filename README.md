@@ -43,11 +43,15 @@ expo build:ios
 
 ### Empty
 
-![login](./docs/images/login.png)
+![empty](./docs/images/empty.png)
+
+### New Task
+
+![newTask](./docs/images/newTask.png)
 
 ### Populated
 
-![register](./docs/images/register.png)
+![populated](./docs/images/populated.png)
 
 ## Optimizations
 
