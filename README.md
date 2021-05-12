@@ -8,10 +8,6 @@ Todo List app for React Native Screening Test offered by CabbageApps.
 - No external libraries have been leveraged in an attempt to forgeo stability and consistent performance of the overall user experience.
 - Many implementations within this project have been hastily designed so as to reach deadlines.
 
-## Authors
-
-- [@diamondbond](https://github.com/diamondbond)
-
 ## Deployment
 
 To deploy this project run
@@ -76,6 +72,10 @@ npx expo-optimize
 ## Support & Feedback
 
 For support or feedback, please email diamondbond1@gmail.com.
+
+## Authors
+
+- [@diamondbond](https://github.com/diamondbond)
 
 ## Links
 
