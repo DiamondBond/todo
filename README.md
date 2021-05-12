@@ -41,6 +41,10 @@ expo build:ios
 
 ## Screenshots
 
+### Populated
+
+![populated](./docs/images/populated.png)
+
 ### Empty
 
 ![empty](./docs/images/empty.png)
@@ -48,10 +52,6 @@ expo build:ios
 ### New Task
 
 ![newTask](./docs/images/newTask.png)
-
-### Populated
-
-![populated](./docs/images/populated.png)
 
 ## Optimizations
 
