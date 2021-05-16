@@ -18,6 +18,7 @@ import { useEffect } from "react";
 
 interface ToDo {
   text: string;
+  desc: string;
   completed: boolean;
 }
 
@@ -50,6 +51,10 @@ export default function TabOneScreen(props: any) {
     hideUsernameModal();
   };
 
+  // Description
+  const [valueDesc, setValueDesc] = useState<string>("");
+  const [DescError, showDescError] = useState<Boolean>(false);
+
   // TODO List State Management
   const [value, setValue] = useState<string>("");
   const [toDoList, setToDos] = useState<ToDo[]>([]);
@@ -59,9 +64,13 @@ export default function TabOneScreen(props: any) {
 
   const handleSubmit = (): void => {
     if (value.trim())
-      setToDos([...toDoList, { text: value, completed: false }]);
+      setToDos([
+        ...toDoList,
+        { text: value, desc: valueDesc, completed: false },
+      ]);
     else showError(true);
     setValue("");
+    setValueDesc("");
     hideModal();
   };
 
@@ -108,13 +117,25 @@ export default function TabOneScreen(props: any) {
               <Text>{`\n`}</Text>
               <Text>{`\n`}</Text>
               <TextInput
-                placeholder="Task Title"
+                placeholder="Title"
                 value={value}
                 onChangeText={(e) => {
                   setValue(e);
                   showError(false);
                 }}
                 autoFocus={true}
+                multiline={true}
+                style={styles.inputBox}
+              />
+              <Text></Text>
+              <TextInput
+                placeholder="Description"
+                value={valueDesc}
+                onChangeText={(e) => {
+                  setValueDesc(e);
+                  showDescError(false);
+                }}
+                autoFocus={false}
                 multiline={true}
                 style={styles.inputBox}
               />
@@ -296,19 +317,41 @@ export default function TabOneScreen(props: any) {
         )}
         {toDoList.map((toDo: ToDo, index: number) => (
           <View style={styles.listItem} key={`${index}_${toDo.text}`}>
-            <Text
-              style={[
-                styles.task,
-                {
-                  textDecorationLine: toDo.completed ? "line-through" : "none",
-                  fontSize: 22,
-                  fontWeight: "normal",
-                  fontStyle: toDo.completed ? "italic" : "normal",
-                },
-              ]}
-            >
-              {toDo.text}
-            </Text>
+            <View>
+              <Text
+                style={[
+                  styles.task,
+                  {
+                    textDecorationLine: toDo.completed
+                      ? "line-through"
+                      : "none",
+                    fontSize: 22,
+                    // color: "#ab93c5",
+                    backgroundColor: "#f9fafc",
+                    fontWeight: "bold",
+                    fontStyle: toDo.completed ? "italic" : "normal",
+                  },
+                ]}
+              >
+                {toDo.text}
+              </Text>
+              <Text
+                style={[
+                  styles.task,
+                  {
+                    textDecorationLine: toDo.completed
+                      ? "line-through"
+                      : "none",
+                    fontSize: 20,
+                    backgroundColor: "#f9fafc",
+                    fontWeight: "normal",
+                    fontStyle: toDo.completed ? "italic" : "normal",
+                  },
+                ]}
+              >
+                {toDo.desc}
+              </Text>
+            </View>
 
             {/* DELETE TASK */}
             <TouchableOpacity
@@ -424,10 +467,10 @@ const styles = StyleSheet.create({
     borderColor: "lightgray",
     borderWidth: 1,
     borderRadius: 15,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 15,
+    paddingRight: 30,
     marginTop: 15,
     marginBottom: 15,
   },

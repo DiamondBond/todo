@@ -11,11 +11,9 @@ import {
 } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
-
 const { width, height } = Dimensions.get("window");
 
 export default function TabTwoScreen(props: any) {
-
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>
@@ -57,7 +55,7 @@ export default function TabTwoScreen(props: any) {
           textDayHeaderFontSize: 16,
         }}
         onDayPress={(day: any) => {
-          props.navigation.replace("TabTwoScreen");
+          props.navigation.navigate("TabTwoScreen");
         }}
         // Handler which gets executed on day long press. Default = undefined
         onDayLongPress={(day: any) => {
