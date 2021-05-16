@@ -10,13 +10,11 @@ import {
   Dimensions,
 } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-import Navigation from "../navigation";
-import SyncStorage from "sync-storage";
+
 
 const { width, height } = Dimensions.get("window");
 
 export default function TabTwoScreen(props: any) {
-  const [username, setUsername] = useState<string>("User");
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -27,7 +25,7 @@ export default function TabTwoScreen(props: any) {
       <CalendarList
         style={{
           height: (height * 1) / 4,
-          width: width - 100,
+          width: width - 20,
           resizeMode: "contain",
         }}
         // Specify theme properties to override specific styles for calendar parts. Default = {}
