@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -9,20 +9,49 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   ScrollView,
-  Alert,
 } from "react-native";
-
-import { Text, View } from "../components/Themed";
 import { FontAwesome, Ionicons, Feather } from "@expo/vector-icons";
-import { useEffect } from "react";
+import { Text, View } from "../components/Themed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// Task Struct
 interface ToDo {
   text: string;
   desc: string;
   completed: boolean;
 }
 
+// Device Constraints
 const { width, height } = Dimensions.get("window");
+
+// UUID Helper Functions
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function isInteger(value: any) {
+  return /^\d+$/.test(value);
+}
+
+// Store Task data to local storage
+const storeData = async (value) => {
+  try {
+    await AsyncStorage.setItem("@MySuperStore:key", JSON.stringify(value));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const retrieveData = async () => {
+  try {
+    const value = await AsyncStorage.getItem("key");
+    if (value !== null) {
+      console.log(value);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default function TabOneScreen(props: any) {
   // Modal State Management
@@ -49,6 +78,7 @@ export default function TabOneScreen(props: any) {
   const handleUsernameSubmit = (): void => {
     setUsername(valueUsername);
     hideUsernameModal();
+    //storeData(valueUsername);
   };
 
   // Description
@@ -72,6 +102,7 @@ export default function TabOneScreen(props: any) {
     setValue("");
     setValueDesc("");
     hideModal();
+    //storeData(toDoList);
   };
 
   const removeItem = (index: number): void => {
@@ -91,6 +122,10 @@ export default function TabOneScreen(props: any) {
   };
 
   useEffect(() => {
+    // var username = retrieveData();
+    // if (username !== null) {
+    //   console.log(username);
+    // }
     InitUsername;
   }, []);
 
