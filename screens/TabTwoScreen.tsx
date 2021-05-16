@@ -36,20 +36,19 @@ function isInteger(value: any) {
 // Store Task data to local storage
 const storeData = async (value) => {
   try {
-    await AsyncStorage.setItem("@MySuperStore:key", JSON.stringify(value));
-  } catch (error) {
-    console.log(error);
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem("@storage_Key", jsonValue);
+  } catch (e) {
+    console.log(e);
   }
 };
 
-const retrieveData = async () => {
+const getData = async () => {
   try {
-    const value = await AsyncStorage.getItem("key");
-    if (value !== null) {
-      console.log(value);
-    }
-  } catch (error) {
-    console.log(error);
+    const jsonValue = await AsyncStorage.getItem("@storage_Key");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    console.log(e);
   }
 };
 
@@ -78,7 +77,7 @@ export default function TabOneScreen(props: any) {
   const handleUsernameSubmit = (): void => {
     setUsername(valueUsername);
     hideUsernameModal();
-    //storeData(valueUsername);
+    // storeData(valueUsername);
   };
 
   // Description
@@ -90,7 +89,7 @@ export default function TabOneScreen(props: any) {
   const [toDoList, setToDos] = useState<ToDo[]>([]);
   const [error, showError] = useState<Boolean>(false);
 
-  const [username, setUsername] = useState<string>("User");
+  const [username, setUsername] = useState<string>("Human");
 
   const handleSubmit = (): void => {
     if (value.trim())
@@ -102,7 +101,7 @@ export default function TabOneScreen(props: any) {
     setValue("");
     setValueDesc("");
     hideModal();
-    //storeData(toDoList);
+    // storeData(toDoList);
   };
 
   const removeItem = (index: number): void => {
@@ -122,10 +121,7 @@ export default function TabOneScreen(props: any) {
   };
 
   useEffect(() => {
-    // var username = retrieveData();
-    // if (username !== null) {
-    //   console.log(username);
-    // }
+    //console.log(getData());
     InitUsername;
   }, []);
 
