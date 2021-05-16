@@ -26,65 +26,17 @@ export default function BottomTabNavigator(props: any) {
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="home-outline" color={color} />
+            <TabBarIcon name="calendar-outline" color={color} />
           ),
         }}
       />
-
-      {/* <BottomTab.Screen
-        name="NewTask"
-        component={TabOneNavigator}
-        options={{
-          tabBarButton: () => (
-            <TouchableOpacity
-              style={{
-                height: 40,
-                width: 40,
-                borderRadius: 15,
-                backgroundColor: "#fd93a1",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 5,
-                marginBottom: 5,
-
-                // Shadows
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3,
-                elevation: 5,
-              }}
-              onPress={() => {
-                props.navigation.navigate("Root", {
-                  screen: "TabOne",
-                  params: { displayModal: true },
-                });
-              }}
-            >
-              <FontAwesome name="plus" color="white" size={22} />
-            </TouchableOpacity>
-          ),
-        }}
-        // listeners={() => ({
-        //   tabPress: (event) => {
-        //     event.preventDefault();
-        //     props.navigation.navigate("Root", {
-        //       screen: "TabOne",
-        //       params: { displayModal: true },
-        //     });
-        //   },
-        // })}
-      ></BottomTab.Screen> */}
 
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="settings-outline" color={color} />
+            <TabBarIcon name="clipboard-outline" color={color} />
           ),
         }}
       />

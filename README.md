@@ -1,6 +1,6 @@
 # Todo
 
-Todo List app for React Native Screening Test offered by CabbageApps
+Todo List app.
 
 ## Deployment
 

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "todo",
+    "name": "Todo",
     "slug": "todo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,12 +17,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.diamond.todo",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#cbbcdb"
       }
     },
     "web": {
